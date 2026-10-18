@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { usePageMeta } from '../lib/usePageMeta';
+import { safeFetchJson } from '../lib/api';
 import {
   computeTextDiff,
   generatePatchString,
@@ -184,7 +185,7 @@ export const Compare: React.FC = () => {
     setAiError(null);
 
     try {
-      const res = await fetch('/api/compare/explain', {
+      const data = await safeFetchJson<any>('/api/compare/explain', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -193,11 +194,6 @@ export const Compare: React.FC = () => {
           stats: diffResult.stats,
         }),
       });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'AI explanation request failed');
-      }
 
       setAiSummary(data.summary);
     } catch (err: any) {
@@ -214,12 +210,7 @@ export const Compare: React.FC = () => {
     setLoadError(null);
 
     try {
-      const res = await fetch(`/api/shares/${loadShareCode.trim()}`);
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Share not found or expired');
-      }
+      const data = await safeFetchJson<any>(`/api/shares/${loadShareCode.trim()}`);
 
       if (showLoadModal === 'original') {
         setOriginalText(data.content);

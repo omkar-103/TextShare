@@ -88,7 +88,8 @@ export const MyShares: React.FC = () => {
         body: JSON.stringify({ ownerTokens: tokenStrings }),
       });
 
-      const data = await res.json();
+      const rawText = await res.text();
+      const data = rawText ? JSON.parse(rawText) : {};
       if (res.ok && data.shares) {
         setShares(data.shares);
       }

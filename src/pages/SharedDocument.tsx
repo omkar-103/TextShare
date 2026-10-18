@@ -79,7 +79,13 @@ export const SharedDocument: React.FC = () => {
       if (providedPassword) headers['x-share-password'] = providedPassword;
 
       const res = await fetch(`/api/shares/${shareCode}`, { headers });
-      const data = await res.json();
+      let data: any = {};
+      try {
+        const rawText = await res.text();
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        data = {};
+      }
 
       if (res.status === 404) {
         setNotFoundError(true);

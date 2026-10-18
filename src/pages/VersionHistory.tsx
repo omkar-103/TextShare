@@ -4,6 +4,7 @@ import { getOwnerTokenForShare } from '../lib/storage';
 import { usePageMeta } from '../lib/usePageMeta';
 import { DocumentVersion } from '../types';
 import { computeTextDiff } from '../lib/diffEngine';
+import { safeFetchJson } from '../lib/api';
 import {
   History,
   ArrowLeft,
@@ -43,18 +44,11 @@ export const VersionHistory: React.FC = () => {
       if (ownerToken) headers['x-owner-token'] = ownerToken;
 
       // 1. Fetch document metadata for current content
-      const docRes = await fetch(`/api/shares/${shareCode}`, { headers });
-      if (!docRes.ok) throw new Error('Failed to load document');
-      const docData = await docRes.json();
+      const docData = await safeFetchJson<any>(`/api/shares/${shareCode}`, { headers });
       setCurrentContent(docData.content);
 
       // 2. Fetch versions
-      const res = await fetch(`/api/shares/${shareCode}/versions`, { headers });
-      if (!res.ok) {
-        if (res.status === 403) throw new Error('You do not have permission to inspect version history.');
-        throw new Error('Failed to retrieve version history');
-      }
-      const data = await res.json();
+      const data = await safeFetchJson<any>(`/api/shares/${shareCode}/versions`, { headers });
       setVersions(data.versions || []);
       if (data.versions && data.versions.length > 0) {
         setSelectedVersion(data.versions[0]);
@@ -79,14 +73,10 @@ export const VersionHistory: React.FC = () => {
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (ownerToken) headers['x-owner-token'] = ownerToken;
 
-      const res = await fetch(`/api/shares/${shareCode}/versions/${version.id}/restore`, {
+      await safeFetchJson(`/api/shares/${shareCode}/versions/${version.id}/restore`, {
         method: 'POST',
         headers,
       });
-
-      if (!res.ok) {
-        throw new Error('Failed to restore selected version');
-      }
 
       setRestoreSuccess(true);
       setTimeout(() => {

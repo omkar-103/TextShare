@@ -4,6 +4,7 @@ import { Editor } from '../components/Editor';
 import { saveOwnerToken } from '../lib/storage';
 import { saveDraft, loadDraft, clearDraft } from '../lib/draft';
 import { usePageMeta } from '../lib/usePageMeta';
+import { safeFetchJson } from '../lib/api';
 import {
   Share2,
   Lock,
@@ -205,7 +206,7 @@ export const Home: React.FC = () => {
         if (accountToken) headers['x-account-token'] = accountToken;
       }
 
-      const res = await fetch('/api/shares', {
+      const data = await safeFetchJson<any>('/api/shares', {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -217,12 +218,6 @@ export const Home: React.FC = () => {
           password: isSignedIn && usePassword ? password.trim() : undefined,
         }),
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || data.error || 'Failed to create share');
-      }
 
       // Clear draft on success
       clearDraft();
