@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Share Text Online Free — No Sign-Up | TextShare</title>
+    <meta name="description" content="Share text online instantly with a single link. No sign-up needed. Paste text, code, or notes and get a shareable URL in seconds. Shares expire automatically. Compare two texts with the free diff checker." />
+    <link rel="canonical" href="https://textshare.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://textshare.app/" />
+    <meta property="og:title" content="Share Text Online Free — No Sign-Up | TextShare" />
+    <meta property="og:description" content="Paste any text and share it with a link. Free, no account required. Automatic expiry keeps your data temporary. Compare two texts side-by-side with the built-in diff checker." />
+    <meta property="og:site_name" content="TextShare" />
+
+    <!-- Twitter/X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Share Text Online Free — No Sign-Up | TextShare" />
+    <meta name="twitter:description" content="Paste any text and share it with a link. Free, no account required. Automatic expiry keeps your data temporary." />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Theme: set BEFORE React renders to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var THEME_KEY = 'textshare_theme_v1';
+        try {
+          var stored = localStorage.getItem(THEME_KEY);
+          if (stored === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+          // Light is the default — no class needed
+        } catch (e) {
+          // localStorage blocked — light mode is safe default
+        }
+      })();
+    </script>
+
+    <!-- Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "TextShare",
+      "url": "https://textshare.app/",
+      "description": "Free online text sharing tool. Paste text, code, or notes and share with a link. No sign-up required.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://textshare.app/compare",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "TextShare & Diff - Real-Time Collaborative Text Platform",
+  "description": "High-performance real-time collaborative text and code sharing with instant access controls, expiration policies, version history, and deterministic text comparison.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

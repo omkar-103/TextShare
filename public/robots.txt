@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /compare
+Allow: /privacy
+Allow: /terms
+
+# Block private user pages — these have noindex too
+Disallow: /my-shares
+Disallow: /s/
+
+# Block API endpoints
+Disallow: /api/
+
+Sitemap: https://textshare.app/sitemap.xml
